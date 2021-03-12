@@ -19,5 +19,6 @@ export default {
 <style>
 .sorting-hat-title {
   text-align: center;
+  font-size: 45px;
 }
 </style>

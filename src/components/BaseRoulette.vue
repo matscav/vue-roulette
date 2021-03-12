@@ -5,7 +5,7 @@
         {{ user }}
       </div>
     </div>
-    <button class="spin-button" @click="spinRoulette">Spin!</button>
+    <button class="spin-button" @click="spinRoulette" :disabled="isLoading">Spin!</button>
   </div>
 </template>
 
@@ -15,7 +15,9 @@ export default {
   data () {
     return {
       users: ['bruno', 'jose javier', 'carmen', 'juan pablo', 'roberto', 'adrian antonio', 'simon', 'sergio', 'ismael', 'irina', 'ricardo adrian', 'dario', 'lucia', 'carlos', 'antonio', 'mathias', 'nestor', 'aythami'],
-      userSelected: -1
+      userSelected: -1,
+      winnerSound: new Audio('https://freesound.org/data/previews/435/435878_1992856-lq.mp3'),
+      isLoading: false
     };
   },
   methods: {
@@ -23,6 +25,7 @@ export default {
       return Math.floor(Math.random() * this.users.length);
     },
     spinRoulette () {
+      this.isLoading = true;
       if (this.userSelected !== -1) {
         this.$el.querySelector('.selected').classList.remove('super-selected');
       }
@@ -30,9 +33,13 @@ export default {
         this.userSelected = this.getRandom();
       }, 200);
       setTimeout(() => {
-        clearInterval(selectionInterval);
-        this.$el.querySelector('.selected').classList.add('super-selected');
-      }, 5000);
+        this.winnerSound.play();
+        setTimeout(() => {
+          clearInterval(selectionInterval);
+          this.$el.querySelector('.selected').classList.add('super-selected');
+          this.isLoading = false;
+        }, 2250);
+      }, 3000);
     },
     isSelected (index) {
       return (index === this.userSelected) ? 'selected' : '';
