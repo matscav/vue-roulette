@@ -43,10 +43,15 @@ export default {
         this.winnerSound.play();
         setTimeout(() => {
           clearInterval(selectionInterval);
+          this.voiceSynthesis(this.users[this.userSelected]);
           this.$el.querySelector('.selected').classList.add('super-selected');
           this.isLoading = false;
         }, 2250);
       }, 3000);
+    },
+    voiceSynthesis (text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
     },
     isSelected (index) {
       return (index === this.userSelected) ? 'selected' : '';
