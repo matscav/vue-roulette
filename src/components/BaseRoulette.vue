@@ -97,6 +97,10 @@ export default {
     margin-top: 25px;
     padding: 20px;
     font-size: 40px;
+    cursor: pointer;
+  }
+  & .spin-button:disabled {
+    cursor: wait;
   }
 }
 </style>
