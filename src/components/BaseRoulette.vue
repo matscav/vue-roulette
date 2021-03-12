@@ -5,13 +5,20 @@
         {{ user }}
       </div>
     </div>
-    <button class="spin-button" @click="spinRoulette" :disabled="isLoading">Spin!</button>
+    <button class="spin-button" @click="spinRoulette" :disabled="isLoading">
+        <span v-show="!isLoading">Spin!</span>
+        <SyncLoader :loading="isLoading" color="green" size="30px" />
+      </button>
   </div>
 </template>
 
 <script>
+import SyncLoader from './SyncLoader.vue';
 export default {
   name: 'BaseRoulette',
+  components: {
+    SyncLoader
+  },
   data () {
     return {
       users: ['bruno', 'jose javier', 'carmen', 'juan pablo', 'roberto', 'adrian antonio', 'simon', 'sergio', 'ismael', 'irina', 'ricardo adrian', 'dario', 'lucia', 'carlos', 'antonio', 'mathias', 'nestor', 'aythami'],
